@@ -1,104 +1,89 @@
+# Mobile Shopping
 
-```
-Mobile_Shopping_Chuẩn
-├─ mobile-shopping
-│  ├─ .npmrc
-│  ├─ package-lock.json
-│  ├─ package.json
-│  ├─ public
-│  │  ├─ favicon.ico
-│  │  ├─ index.html
-│  │  ├─ logo192.png
-│  │  ├─ logo512.png
-│  │  ├─ manifest.json
-│  │  └─ robots.txt
-│  ├─ README.md
-│  ├─ src
-│  │  ├─ App.css
-│  │  ├─ App.tsx
-│  │  ├─ assets
-│  │  │  ├─ avatar.png
-│  │  │  ├─ cart.png
-│  │  │  ├─ logo.png
-│  │  │  ├─ profile.png
-│  │  │  ├─ samsungA31.webp
-│  │  │  └─ shop.png
-│  │  ├─ data.ts
-│  │  ├─ declarations.d.ts
-│  │  ├─ i18n
-│  │  │  ├─ i18n.js
-│  │  │  └─ locales
-│  │  │     ├─ en.json
-│  │  │     └─ vi.json
-│  │  ├─ index.css
-│  │  ├─ index.tsx
-│  │  ├─ layouts
-│  │  │  ├─ DefaultLayout.module.scss
-│  │  │  ├─ DefaultLayout.tsx
-│  │  │  ├─ Header.module.scss
-│  │  │  ├─ Header.tsx
-│  │  │  ├─ Sidebar.module.scss
-│  │  │  └─ Sidebar.tsx
-│  │  ├─ mocks
-│  │  │  └─ mockData.ts
-│  │  ├─ modules
-│  │  │  ├─ auth
-│  │  │  │  ├─ auth.epics.ts
-│  │  │  │  ├─ auth.selectors.ts
-│  │  │  │  └─ auth.slice.ts
-│  │  │  ├─ cart
-│  │  │  │  ├─ cart.epics.ts
-│  │  │  │  ├─ cart.selectors.ts
-│  │  │  │  └─ cart.slice.ts
-│  │  │  ├─ order
-│  │  │  │  ├─ order.epics.ts
-│  │  │  │  ├─ order.selectors.ts
-│  │  │  │  └─ order.slice.ts
-│  │  │  └─ product
-│  │  │     ├─ product.epics.ts
-│  │  │     ├─ product.selectors.ts
-│  │  │     └─ product.slice.ts
-│  │  ├─ pages
-│  │  │  ├─ Cart.module.scss
-│  │  │  ├─ Cart.tsx
-│  │  │  ├─ Checkout.module.scss
-│  │  │  ├─ Checkout.tsx
-│  │  │  ├─ Login.module.scss
-│  │  │  ├─ Login.tsx
-│  │  │  ├─ ProductDetail.module.scss
-│  │  │  ├─ ProductDetail.tsx
-│  │  │  ├─ Profile.module.scss
-│  │  │  ├─ Profile.tsx
-│  │  │  ├─ Shop.module.scss
-│  │  │  └─ Shop.tsx
-│  │  ├─ routes
-│  │  │  └─ ProtectedRoute.tsx
-│  │  ├─ services
-│  │  │  ├─ auth.service.ts
-│  │  │  ├─ cart.service.ts
-│  │  │  ├─ order.service.ts
-│  │  │  ├─ product.service.ts
-│  │  │  └─ utils.ts
-│  │  ├─ store
-│  │  │  ├─ root.epic.ts
-│  │  │  ├─ root.reducer.ts
-│  │  │  └─ store.ts
-│  │  └─ styles
-│  │     └─ common.module.scss
-│  └─ tsconfig.json
-├─ mobile-shopping-tests
-│  ├─ package-lock.json
-│  ├─ package.json
-│  ├─ playwright-report
-│  │  └─ index.html
-│  ├─ playwright.config.js
-│  ├─ test-results
-│  │  └─ .last-run.json
-│  └─ tests
-│     ├─ auth
-│     │  └─ login.spec.js
-│     └─ shop
-│        └─ shop.spec.js
-└─ README.md
+Repository nay gom 2 phan:
 
+- `mobile-shopping`: ung dung web React/TypeScript cho mobile shopping.
+- `mobile-shopping-tests`: bo test e2e bang Playwright.
+
+## Cau truc thu muc
+
+```text
+Mobile_Shopping_Chuan/
+  mobile-shopping/
+    public/
+    src/
+    package.json
+  mobile-shopping-tests/
+    tests/
+    playwright.config.js
+    package.json
 ```
+
+## Chay ung dung
+
+```powershell
+cd mobile-shopping
+npm install
+npm start
+```
+
+Ung dung chay mac dinh tai:
+
+```text
+http://localhost:3000
+```
+
+## Build ung dung
+
+```powershell
+cd mobile-shopping
+npm run build
+```
+
+Thu muc output sau khi build:
+
+```text
+mobile-shopping/build
+```
+
+## Chay test e2e
+
+Mo terminal 1 de chay app:
+
+```powershell
+cd mobile-shopping
+npm start
+```
+
+Mo terminal 2 de chay Playwright test:
+
+```powershell
+cd mobile-shopping-tests
+npm install
+npx playwright test
+```
+
+Xem report test:
+
+```powershell
+npx playwright show-report
+```
+
+## Deploy Vercel
+
+Vi app React nam trong thu muc con, khi cau hinh Vercel can dat:
+
+```text
+Root Directory: mobile-shopping
+Framework Preset: Create React App
+Build Command: npm run build
+Output Directory: build
+Install Command: npm install
+```
+
+Neu deploy tu root repository ma khong set `Root Directory`, Vercel se khong tim thay `package.json` cua app.
+
+## Ghi chu
+
+- Khong commit `node_modules`, `build`, `test-results`, hoac `playwright-report`.
+- Thu muc `mobile-shopping-tests` phu thuoc vao app dang chay o `http://localhost:3000`.
