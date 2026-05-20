@@ -1,0 +1,88 @@
+{
+  "header": {
+    "my_profile": "My Profile",
+    "logout": "Logout"
+  },
+  "login": {
+    "username_placeholder": "Username",
+    "password_placeholder": "Password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot your password?",
+    "login_button": "Login",
+    "footer_contact": "If you have questions or need assistance, please call 19001000",
+    "footer_copyright": "Copyright belongs to AnyBim",
+    "error_required": "This field cannot be empty",
+    "error_credentials": "Incorrect email or password, please try again!",
+    "success_msg": "Login successful!"
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "shop": "Shop",
+    "cart": "Cart",
+    "profile": "My Profile"
+  },
+  "shop": {
+    "title": "Shop",
+    "search_placeholder": "Search products...",
+    "filter": "Filter",
+    "price": "Price",
+    "rating": "Rating",
+    "from": "From",
+    "to": "To",
+    "unlimited": "Unlimited",
+    "stars": "Stars",
+    "no_products_found": "No products found matching the filter"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "item_unit": "items",
+    "loading_msg": "Scanning your cart...",
+    "updating_msg": "Updating...",
+    "product_desc_default": "Genuine product with powerful configuration and trendy design.",
+    "empty_msg": "Your cart is currently empty",
+    "back_to_shop": "Back to Shop",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "total": "Total",
+    "checkout": "Proceed to Checkout"
+  },
+  "profile": {
+    "main_title": "My Profile",
+    "dob": "Date of birth",
+    "sex": "Sex",
+    "male": "Male",
+    "female": "Female",
+    "address_company": "Business Address",
+    "address_home": "Home Address",
+    "save_button": "Save Changes",
+    "saving_button": "Saving...",
+    "save_success": "Information saved successfully!"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "address": "Shipping Address",
+    "total_pay": "Total amount to pay",
+    "confirm_order": "Confirm Order",
+    "success_msg": "Order placed successfully! Thank you.",
+    "placeholder_name": "Enter your name...",
+    "placeholder_phone": "Enter your phone...",
+    "placeholder_address": "Enter your delivery address...",
+    "payment_cod": "Cash on Delivery",
+    "payment_qr": "QR Bank Transfer",
+    "qr_guide": "Scan to pay for your order",
+    "qr_alert": "* Order will be processed after payment confirmation",
+    "processing": "Processing your order..."
+  },
+  "detail": {
+    "breadcrumb": "Product Detail",
+    "color": "Color",
+    "reviews": "View reviews",
+    "buy_now": "BUY NOW",
+    "add_to_cart": "ADD TO CART",
+    "added_msg": "Added",
+    "not_found": "Product not found!",
+    "back_to_shop": "Back to Shop"
+  }
+}

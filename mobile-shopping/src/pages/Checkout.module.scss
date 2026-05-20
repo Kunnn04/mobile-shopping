@@ -1,0 +1,213 @@
+.wrapper {
+  padding: 20px;
+  background-color: #fff;
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto; // Căn giữa trên màn hình lớn
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+  }
+
+  input,
+  textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #00c3ff; // Màu xanh thương hiệu của Quân
+      background-color: #f0faff;
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}
+
+.summary {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px dashed #00c3ff;
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    strong {
+      color: #f5222d;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #00c3ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #00a0d1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 195, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// --- RESPONSIVE CHO MOBILE (360px - 768px) ---
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 15px;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  .form-group {
+    input,
+    textarea {
+      padding: 10px;
+      font-size: 0.95rem;
+    }
+  }
+
+  .summary {
+    padding: 15px;
+    p {
+      font-size: 1rem;
+      strong {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+/* Thêm vào cuối file Checkout.module.scss của Quân */
+
+.payment-methods {
+  display: flex;
+  gap: 20px;
+  margin: 10px 0;
+
+  .method-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:has(input:checked) {
+      border-color: #00c3ff;
+      background-color: #f0faff;
+      font-weight: bold;
+    }
+  }
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  text-align: center;
+
+  p {
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .qr-image {
+    width: 250px; // Kích thước chuẩn cho QR
+    height: auto;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .qr-alert {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #f5222d;
+    font-style: italic;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #00c3ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

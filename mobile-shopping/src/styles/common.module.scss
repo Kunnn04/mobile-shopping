@@ -1,0 +1,36 @@
+/* =========================================
+   COMMON STYLES
+   Các class dùng chung cho toàn bộ ứng dụng
+   ========================================= */
+
+/* Tiêu đề trang chung (Shop, Cart, Profile...) */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 25px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  flex-shrink: 0; /* Không cho tiêu đề bị co lại */
+}
+
+/* Card - Component nền tảng cho giao diện đồng nhất */
+.card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}

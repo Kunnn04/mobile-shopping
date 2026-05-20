@@ -1,0 +1,88 @@
+{
+  "header": {
+    "my_profile": "Hồ sơ của tôi",
+    "logout": "Đăng xuất"
+  },
+  "login": {
+    "username_placeholder": "Tên đăng nhập",
+    "password_placeholder": "Mật khẩu",
+    "remember_me": "Lưu đăng nhập",
+    "forgot_password": "Bạn quên mật khẩu?",
+    "login_button": "Đăng nhập",
+    "footer_contact": "Nếu bạn có thắc mắc hay cần giải đáp, vui lòng liên hệ số điện thoại 19001000",
+    "footer_copyright": "Bản quyền thuộc về AnyBim",
+    "error_required": "Vui lòng không bỏ trống",
+    "error_credentials": "Sai email hoặc mật khẩu, thử lại nhé!",
+    "success_msg": "Đăng nhập thành công!"
+  },
+  "sidebar": {
+    "menu": "Danh mục",
+    "shop": "Cửa hàng",
+    "cart": "Giỏ hàng",
+    "profile": "Tài khoản"
+  },
+  "shop": {
+    "title": "Cửa hàng",
+    "search_placeholder": "Tìm kiếm sản phẩm...",
+    "filter": "Bộ lọc",
+    "price": "Giá",
+    "rating": "Đánh giá",
+    "from": "Từ",
+    "to": "Đến",
+    "unlimited": "Vô tận",
+    "stars": "Sao",
+    "no_products_found": "Không tìm thấy sản phẩm nào khớp với bộ lọc"
+  },
+  "cart": {
+    "title": "Giỏ hàng",
+    "item_unit": "sản phẩm",
+    "loading_msg": "Đang quét giỏ hàng...",
+    "updating_msg": "Đang cập nhật...",
+    "product_desc_default": "Sản phẩm chính hãng với cấu hình mạnh mẽ, thiết kế thời thượng.",
+    "empty_msg": "Giỏ hàng của bạn đang trống",
+    "back_to_shop": "Quay lại cửa hàng",
+    "subtotal": "Tạm tính",
+    "tax": "Thuế",
+    "total": "Tổng cộng",
+    "checkout": "Tiến hành thanh toán"
+  },
+  "profile": {
+    "main_title": "Hồ sơ của tôi",
+    "dob": "Ngày sinh",
+    "sex": "Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "address_company": "Địa chỉ cơ quan",
+    "address_home": "Địa chỉ nhà riêng",
+    "save_button": "Lưu thay đổi",
+    "saving_button": "Đang lưu...",
+    "save_success": "Lưu thông tin thành công!"
+  },
+  "detail": {
+    "breadcrumb": "Chi tiết sản phẩm",
+    "color": "Màu",
+    "reviews": "Xem đánh giá",
+    "buy_now": "MUA NGAY",
+    "add_to_cart": "THÊM VÀO GIỎ HÀNG",
+    "added_msg": "Đã thêm",
+    "not_found": "Sản phẩm không tồn tại!",
+    "back_to_shop": "Quay về cửa hàng"
+  },
+  "checkout": {
+    "title": "Thanh toán",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ nhận hàng",
+    "placeholder_name": "Họ và tên",
+    "placeholder_phone": "Nhập số điện thoại...",
+    "placeholder_address": "Số nhà, tên đường...",
+    "total_pay": "Tổng cộng",
+    "payment_cod": "Tiền mặt (COD)",
+    "payment_qr": "Chuyển khoản QR",
+    "qr_guide": "Quét mã để thanh toán đơn hàng",
+    "qr_alert": "* Đơn hàng sẽ được xử lý sau khi nhận được tiền",
+    "confirm_order": "Xác nhận đặt hàng",
+    "processing": "Đang xử lý đơn hàng...",
+    "success_msg": "Đặt hàng thành công! Kiểm tra email của bạn."
+  }
+}

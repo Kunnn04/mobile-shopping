@@ -1,0 +1,145 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // Màu gradient xanh chuẩn theo ảnh Quân gửi
+  background: linear-gradient(
+    180deg,
+    #00aaff 0%,
+    #0088cc 100%
+  ); // Thay bằng ảnh thành phố của bạn
+  background-size: cover;
+  background-position: bottom center;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  text-align: center;
+}
+
+.logo-container {
+  margin-bottom: 50px;
+  .logo {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 10px;
+  }
+}
+
+.form {
+  .input-group {
+    position: relative;
+    margin-bottom: 35px; // Increase bottom margin to make space for error message
+
+    input {
+      width: 100%;
+      padding: 15px 45px;
+      border-radius: 8px;
+      border: 2px solid transparent; // Add transparent border for smooth transition
+      outline: none;
+      font-size: 1rem;
+      color: #666;
+      transition: border-color 0.3s ease;
+
+      &::placeholder {
+        color: #ccc;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00aaff;
+      font-size: 1.2rem;
+    }
+
+    .icon-eye {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      cursor: pointer;
+    }
+
+    // --- Styles for validation errors ---
+    .input-error {
+      border-color: #ff4d4f;
+    }
+
+    .error-message {
+      position: absolute;
+      bottom: -22px;
+      left: 5px;
+      color: #ffdddd;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  color: #fff;
+  font-size: 0.9rem;
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .forgot {
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: #fff;
+    color: #0088cc;
+  }
+}
+
+.footer-text {
+  margin-top: 60px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.auth-error {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  color: #ff4d4f;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+}

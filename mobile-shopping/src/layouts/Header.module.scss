@@ -1,0 +1,211 @@
+/* ==========================================================================
+   HEADER COMPONENT STYLES
+   Cấu trúc: Logo + Language Switch (Toggle) + User Avatar
+   ========================================================================== */
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #d1e9f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Logo & Thương hiệu */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  img {
+    height: 35px;
+  }
+
+  span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  @media (max-width: 480px) {
+    span {
+      display: none;
+    }
+  }
+}
+
+/* 2. Cụm chức năng bên phải (Actions) */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* --- NÚT GẠT CHUYỂN NGÔN NGỮ (TOGGLE SWITCH) --- */
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #888;
+    transition: color 0.3s ease;
+
+    &.active {
+      color: #00c3ff;
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Trạng thái Switch khi được Check hoặc Disabled */
+input:checked + .slider {
+  background-color: #00c3ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+input:disabled + .slider {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 3. Avatar Người dùng & Dropdown */
+.user {
+  position: relative; // Anchor for the dropdown
+
+  img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0 8px rgba(0, 195, 255, 0.7);
+    }
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px); // Below avatar with a gap
+  right: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 1001;
+  border: 1px solid #e9ecef;
+  overflow: hidden; // Respects border-radius
+  animation: fadeIn 0.2s ease-out;
+}
+
+.dropdown-item {
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid #f0f2f5;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+}
+
+/* 4. Hiệu ứng Loading Overlay (Dùng khi chuyển ngôn ngữ) */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #00c3ff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .loading-text {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #333;
+  }
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

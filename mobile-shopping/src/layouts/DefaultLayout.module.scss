@@ -1,0 +1,61 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+}
+
+.sidebar-container {
+  position: fixed;              /* ← đổi thành fixed */
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  border-right: 1px solid #eee;
+  width: 240px;
+  transition: width 0.3s ease;
+  flex-shrink: 0;
+  background-color: #fff;
+
+  &.collapsed {
+    width: 70px;
+  }
+}
+
+/* Content cần margin-left bằng width sidebar */
+.content {
+  flex: 1;
+  padding: 25px;
+  background-color: #f9f9f9;
+  margin-left: 240px;
+  transition: margin-left 0.3s ease;
+  min-width: 0;
+
+  &.collapsed {
+    margin-left: 70px;  /* ← khi sidebar thu gọn */
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin-left: 70px;
+  }
+}
