@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useRef } from "react";
 import classNames from "classnames/bind";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +8,10 @@ import commonStyles from "../styles/common.module.scss";
 import avatarImg from "../assets/avatar.png";
 import { updateProfile } from "../modules/auth/auth.slice";
 import { selectUser } from "../modules/auth/auth.selectors";
+import {
+  selectAuthLoading,
+  selectAuthError,
+} from "../modules/auth/auth.selectors";
 import { AppDispatch } from "../store/store";
 
 const cx = classNames.bind(styles);
@@ -22,8 +26,10 @@ function Profile() {
   const [day, setDay] = useState<string>(currentUser?.dob?.day || "01");
   const [month, setMonth] = useState<string>(currentUser?.dob?.month || "01");
   const [year, setYear] = useState<string>(currentUser?.dob?.year || "2018");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const isLoading = useSelector(selectAuthLoading);
+  const error = useSelector(selectAuthError);
+  const saveRequested = useRef(false);
 
   const days = Array.from({ length: 31 }, (_, i) =>
     String(i + 1).padStart(2, "0"),
@@ -35,15 +41,18 @@ function Profile() {
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
 
   const handleSave = (): void => {
-    setIsLoading(true);
     setIsSuccess(false);
     const updatedProfile = { gender, dob: { day, month, year } };
-    setTimeout(() => {
-      dispatch(updateProfile(updatedProfile));
-      setIsLoading(false);
-      setIsSuccess(true);
-    }, 1000);
+    saveRequested.current = true;
+    dispatch(updateProfile(updatedProfile));
   };
+
+  useEffect(() => {
+    if (saveRequested.current && !isLoading) {
+      setIsSuccess(!error);
+      saveRequested.current = false;
+    }
+  }, [error, isLoading]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -137,6 +146,7 @@ function Profile() {
               {t("profile.save_success")}
             </div>
           )}
+          {error && <div className={cx("error-message")}>{error}</div>}
           <button
             className={cx("save-btn")}
             onClick={handleSave}

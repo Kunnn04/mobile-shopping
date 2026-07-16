@@ -1,5 +1,5 @@
 import { RootState } from "../../store/store";
-import { User } from "./auth.slice";
+import { User } from "../../types/auth.types";
 
 export const selectUser = (state: RootState): User | null => state.auth.user;
 

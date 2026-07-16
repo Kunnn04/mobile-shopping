@@ -50,7 +50,6 @@ function Checkout() {
     const orderDetails = {
       ...formData,
       items: cartItems,
-      totalAmount,
     };
     dispatch(createOrder(orderDetails));
   };
@@ -59,7 +58,6 @@ function Checkout() {
     if (order) {
       toast.success(t("checkout.success_msg"));
       dispatch(clearCart());
-      dispatch(clearOrder());
       navigate("/shop");
     }
   }, [order, navigate, dispatch, t]);
@@ -69,6 +67,10 @@ function Checkout() {
       toast.error(t("checkout.error_msg"));
     }
   }, [error, t]);
+
+  useEffect(() => () => {
+    dispatch(clearOrder());
+  }, [dispatch]);
 
   return (
     <div className={cx("wrapper")}>

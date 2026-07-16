@@ -1,6 +1,6 @@
 import { ofType } from "redux-observable";
 import { of, Observable } from "rxjs";
-import { switchMap, map, catchError } from "rxjs/operators";
+import { switchMap, concatMap, map, catchError } from "rxjs/operators";
 import { Action, PayloadAction } from "@reduxjs/toolkit";
 import {
   getCart,
@@ -16,9 +16,11 @@ import {
   updateCartItemSuccess,
   updateCartItemFailure,
   CartPayload,
+  clearCart,
+  clearCartSuccess,
+  clearCartFailure,
 } from "./cart.slice";
 import { Product } from "../product/product.slice";
-import { cartService } from "../../services/cart.service";
 import { AppEpic } from "../../store/root.epic";
 import { CartItem } from "./cart.slice";
 
@@ -27,33 +29,33 @@ const calculateCartData = (items: CartItem[]): CartPayload => ({
   total: items.reduce((total, item) => total + item.price * item.quantity, 0),
 });
 
-export const getCartEpic: AppEpic = (action$: Observable<Action>) =>
+export const getCartEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(getCart.type),
     switchMap(() =>
-      cartService.getCartItems().pipe(
+      dependencies.cartService.getCartItems().pipe(
         map((items: CartItem[]) => getCartSuccess(calculateCartData(items))),
         catchError((error: Error) => of(getCartFailure(error.message))),
       ),
     ),
   );
-export const addToCartEpic: AppEpic = (action$: Observable<Action>) =>
+export const addToCartEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(addToCart.type),
-    switchMap((action: PayloadAction<Product>) => {
+    concatMap((action: PayloadAction<Product>) => {
       // Chuyển Product thành CartItem trước khi gửi vào service
       const cartItem: CartItem = { ...action.payload, quantity: 1 };
-      return cartService.addToCart(cartItem).pipe(
+      return dependencies.cartService.addToCart(cartItem).pipe(
         map((items: CartItem[]) => addToCartSuccess(calculateCartData(items))),
         catchError((error: Error) => of(addToCartFailure(error.message))),
       );
     }),
   );
-export const removeFromCartEpic: AppEpic = (action$: Observable<Action>) =>
+export const removeFromCartEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(removeFromCart.type),
-    switchMap((action: PayloadAction<string>) =>
-      cartService.removeFromCart(action.payload).pipe(
+    concatMap((action: PayloadAction<string>) =>
+      dependencies.cartService.removeFromCart(action.payload).pipe(
         map((items: CartItem[]) =>
           removeFromCartSuccess(calculateCartData(items)),
         ),
@@ -62,12 +64,12 @@ export const removeFromCartEpic: AppEpic = (action$: Observable<Action>) =>
     ),
   );
 
-export const updateCartItemEpic: AppEpic = (action$: Observable<Action>) =>
+export const updateCartItemEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(updateCartItem.type),
-    switchMap(
+    concatMap(
       (action: PayloadAction<{ productId: string; quantity: number }>) =>
-        cartService
+        dependencies.cartService
           .updateCartItem(action.payload.productId, action.payload.quantity)
           .pipe(
             map((items: CartItem[]) =>
@@ -80,9 +82,21 @@ export const updateCartItemEpic: AppEpic = (action$: Observable<Action>) =>
     ),
   );
 
+export const clearCartEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
+  action$.pipe(
+    ofType(clearCart.type),
+    concatMap(() =>
+      dependencies.cartService.clearCart().pipe(
+        map(() => clearCartSuccess()),
+        catchError((error: Error) => of(clearCartFailure(error.message))),
+      ),
+    ),
+  );
+
 export const cartEpics: AppEpic[] = [
   getCartEpic,
   addToCartEpic,
   removeFromCartEpic,
   updateCartItemEpic,
+  clearCartEpic,
 ];

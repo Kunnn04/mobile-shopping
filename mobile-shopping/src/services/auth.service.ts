@@ -2,7 +2,7 @@ import { Observable, throwError } from "rxjs";
 import { mockApiCall } from "./utils";
 import { MOCK_USER } from "../mocks/mockData";
 import { USER_ACCOUNT } from "../data";
-import { User } from "../modules/auth/auth.slice";
+import { User } from "../types/auth.types";
 
 interface Credentials {
   email: string;
@@ -31,4 +31,7 @@ export const authService = {
     console.log("[AUTH] Giả lập đăng xuất");
     return mockApiCall({ success: true });
   },
+
+  updateProfile: (user: User, changes: Partial<User>): Observable<User> =>
+    mockApiCall({ ...user, ...changes }),
 };

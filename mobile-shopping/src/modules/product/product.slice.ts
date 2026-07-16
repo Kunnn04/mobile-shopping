@@ -12,12 +12,14 @@ interface Product {
 // Định nghĩa kiểu cho state của product
 interface ProductState {
   products: Product[];
+  selectedProduct: ProductDetail | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: ProductState = {
   products: [],
+  selectedProduct: null,
   loading: false,
   error: null,
 };
@@ -40,10 +42,38 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchProductDetail: (state, _action: PayloadAction<string>) => {
+      state.loading = true;
+      state.error = null;
+      state.selectedProduct = null;
+    },
+    fetchProductDetailSuccess: (
+      state,
+      action: PayloadAction<ProductDetail>,
+    ) => {
+      state.loading = false;
+      state.selectedProduct = action.payload;
+      state.error = null;
+    },
+    fetchProductDetailFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
+export interface ProductDetail extends Product {
+  description: string;
+  specs: string[];
+}
+
 export type { Product, ProductState };
-export const { fetchProducts, fetchProductsSuccess, fetchProductsFailure } =
-  productSlice.actions;
+export const {
+  fetchProducts,
+  fetchProductsSuccess,
+  fetchProductsFailure,
+  fetchProductDetail,
+  fetchProductDetailSuccess,
+  fetchProductDetailFailure,
+} = productSlice.actions;
 export default productSlice.reducer;

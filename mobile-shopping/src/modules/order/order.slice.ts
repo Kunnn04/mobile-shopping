@@ -28,7 +28,6 @@ interface CreateOrderPayload {
   address: string;
   paymentMethod: string;
   items: CartItem[];
-  totalAmount: number;
 }
 
 const initialState: OrderState = {
@@ -43,10 +42,12 @@ const orderSlice = createSlice({
   reducers: {
     createOrder: (state, _action: PayloadAction<CreateOrderPayload>) => {
       state.loading = true;
+      state.error = null;
     },
     createOrderSuccess: (state, action: PayloadAction<Order>) => {
       state.loading = false;
       state.order = action.payload;
+      state.error = null;
     },
     createOrderFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;

@@ -23,7 +23,10 @@ export const orderService = {
     console.log("[ORDER MOCK] Giả lập tạo đơn hàng");
     return mockApiCall({
       ...MOCK_ORDER,
-      totalAmount: checkoutDetails.totalAmount,
+      totalAmount: checkoutDetails.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      ),
     });
   },
 

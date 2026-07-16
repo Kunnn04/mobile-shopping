@@ -7,19 +7,38 @@ import {
   fetchProducts,
   fetchProductsSuccess,
   fetchProductsFailure,
+  fetchProductDetail,
+  fetchProductDetailSuccess,
+  fetchProductDetailFailure,
 } from "./product.slice";
-import { productService } from "../../services/product.service";
 import { AppEpic } from "../../store/root.epic";
+import { PayloadAction } from "@reduxjs/toolkit";
 
-const fetchProductsEpic: AppEpic = (action$: Observable<Action>) =>
+const fetchProductsEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(fetchProducts.type),
     switchMap(() =>
-      productService.getProducts().pipe(
+      dependencies.productService.getProducts().pipe(
         map((response) => fetchProductsSuccess(response)),
         catchError((error: Error) => of(fetchProductsFailure(error.message))),
       ),
     ),
   );
 
-export const productEpics: AppEpic[] = [fetchProductsEpic];
+const fetchProductDetailEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
+  action$.pipe(
+    ofType(fetchProductDetail.type),
+    switchMap((action: PayloadAction<string>) =>
+      dependencies.productService.getProductDetail(action.payload).pipe(
+        map((response) => fetchProductDetailSuccess(response)),
+        catchError((error: Error) =>
+          of(fetchProductDetailFailure(error.message)),
+        ),
+      ),
+    ),
+  );
+
+export const productEpics: AppEpic[] = [
+  fetchProductsEpic,
+  fetchProductDetailEpic,
+];

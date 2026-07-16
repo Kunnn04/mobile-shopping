@@ -1,6 +1,5 @@
 import { RootState } from "../../store/store";
-import { Product } from "./product.slice";
-import { ProductDetail } from "../../services/product.service";
+import { Product, ProductDetail } from "./product.slice";
 
 export const selectProducts = (state: RootState): Product[] =>
   state.product.products;
@@ -13,7 +12,8 @@ export const selectProductError = (state: RootState): string | null =>
 
 export const selectProductById =
   (id: string) =>
-  (state: RootState): ProductDetail | undefined =>
-    state.product.products.find((p) => p.id === id) as
-      | ProductDetail
-      | undefined;
+  (state: RootState): Product | undefined =>
+    state.product.products.find((p) => p.id === id);
+
+export const selectSelectedProduct = (state: RootState): ProductDetail | null =>
+  state.product.selectedProduct;

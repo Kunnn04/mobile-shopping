@@ -9,7 +9,6 @@ import {
   Order,
   CreateOrderPayload,
 } from "./order.slice";
-import { orderService } from "../../services/order.service";
 import { AppEpic } from "../../store/root.epic";
 
 interface OrderResponse {
@@ -19,11 +18,11 @@ interface OrderResponse {
   status: string;
 }
 
-const createOrderEpic: AppEpic = (action$: Observable<Action>) =>
+const createOrderEpic: AppEpic = (action$: Observable<Action>, _state$, dependencies) =>
   action$.pipe(
     ofType(createOrder.type),
     switchMap((action: PayloadAction<CreateOrderPayload>) =>
-      orderService.placeOrder(action.payload).pipe(
+      dependencies.orderService.placeOrder(action.payload).pipe(
         map((response: OrderResponse) => {
           const order: Order = {
             id: response.orderId,

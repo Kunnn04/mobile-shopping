@@ -11,6 +11,9 @@ export const selectCartLoading = (state: RootState): boolean =>
 export const selectCartError = (state: RootState): string | null =>
   state.cart.error;
 
+export const selectAddToCartStatus = (state: RootState) =>
+  state.cart.addStatus;
+
 export const selectCartTotal = createSelector(selectCartItems, (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0),
 );

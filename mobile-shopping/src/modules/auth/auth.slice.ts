@@ -1,20 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface User {
-  id: string;
-  fullName: string;
-  token: string;
-  name?: string;
-  email?: string;
-  gender?: string;
-  dob?: {
-    day: string;
-    month: string;
-    year: string;
-  };
-  companyAddress?: string;
-  homeAddress?: string;
-}
+import { storageService } from "../../services/storage.service";
+import { User } from "../../types/auth.types";
 
 interface AuthState {
   user: User | null;
@@ -23,9 +9,7 @@ interface AuthState {
   error: string | null;
 }
 
-const savedUser: User | null = JSON.parse(
-  localStorage.getItem("user") || "null",
-);
+const savedUser = storageService.getUser();
 
 const initialState: AuthState = {
   user: savedUser || null,
@@ -49,7 +33,6 @@ const authSlice = createSlice({
       state.loading = false;
       state.isLoggedIn = true;
       state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -58,27 +41,45 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.loading = true;
+      state.error = null;
     },
     logoutSuccess: (state) => {
       state.user = null;
       state.isLoggedIn = false;
       state.loading = false;
-      localStorage.removeItem("user");
+      state.error = null;
     },
-    updateProfile: (state, action: PayloadAction<Partial<User>>) => {
-      state.user = { ...state.user, ...action.payload } as User;
-      localStorage.setItem("user", JSON.stringify(state.user));
+    logoutFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    updateProfile: (state, _action: PayloadAction<Partial<User>>) => {
+      state.loading = true;
+      state.error = null;
+    },
+    updateProfileSuccess: (state, action: PayloadAction<User>) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+    },
+    updateProfileFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export type { User, AuthState };
+export type { AuthState };
+export type { User } from "../../types/auth.types";
 export const {
   login,
   loginSuccess,
   loginFailure,
   logout,
   logoutSuccess,
+  logoutFailure,
   updateProfile,
+  updateProfileSuccess,
+  updateProfileFailure,
 } = authSlice.actions;
 export default authSlice.reducer;

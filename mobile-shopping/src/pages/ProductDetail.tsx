@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
@@ -7,8 +7,17 @@ import classNames from "classnames/bind";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ProductDetail.module.scss";
 import { addToCart } from "../modules/cart/cart.slice";
-import { selectCartCount } from "../modules/cart/cart.selectors";
-import { selectProductById } from "../modules/product/product.selectors";
+import {
+  selectAddToCartStatus,
+  selectCartCount,
+  selectCartError,
+} from "../modules/cart/cart.selectors";
+import {
+  selectSelectedProduct,
+  selectProductLoading,
+  selectProductError,
+} from "../modules/product/product.selectors";
+import { fetchProductDetail } from "../modules/product/product.slice";
 import { AppDispatch } from "../store/store";
 
 const cx = classNames.bind(styles);
@@ -20,30 +29,51 @@ function ProductDetail() {
   const dispatch = useDispatch<AppDispatch>();
 
   const cartCount = useSelector(selectCartCount);
-  const product = useSelector(selectProductById(id as string));
+  const product = useSelector(selectSelectedProduct);
+  const productLoading = useSelector(selectProductLoading);
+  const productError = useSelector(selectProductError);
+  const addStatus = useSelector(selectAddToCartStatus);
+  const cartError = useSelector(selectCartError);
 
   // Khởi tạo thẳng từ product, không cần useEffect nữa
   const [activeImg, setActiveImg] = useState<string>(product?.image || "");
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (id) dispatch(fetchProductDetail(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setActiveImg(product?.image || "");
+  }, [product]);
+
+  useEffect(() => {
+    if (!pendingAction) return;
+    if (addStatus === "succeeded") {
+      if (pendingAction === "buy") navigate("/cart");
+      else if (product) toast.success(`${t("detail.added_msg")} ${product.name}!`);
+      setPendingAction(null);
+    } else if (addStatus === "failed") {
+      toast.error(cartError || t("checkout.error_msg"));
+      setPendingAction(null);
+    }
+  }, [addStatus, cartError, navigate, pendingAction, product, t]);
 
   const handleAddToCart = (isBuyNow: boolean = false): void => {
     if (product) {
+      setPendingAction(isBuyNow ? "buy" : "add");
       dispatch(addToCart(product));
-      if (isBuyNow) {
-        navigate("/cart");
-      } else {
-        toast.success(`${t("detail.added_msg")} ${product.name}!`, {
-          position: "top-right",
-          autoClose: 2000,
-          theme: "colored",
-        });
-      }
     }
   };
+
+  if (productLoading) return <div>{t("checkout.processing")}</div>;
 
   if (!product) {
     return (
       <div className={cx("error-container")} data-testid="error-container">
-        <h2>{t("detail.not_found")}</h2>
+        <h2>{productError || t("detail.not_found")}</h2>
         <button onClick={() => navigate("/shop")}>
           {t("detail.back_to_shop")}
         </button>
@@ -124,6 +154,7 @@ function ProductDetail() {
               className={cx("btn-buy")}
               data-testid="btn-buy"
               onClick={() => handleAddToCart(true)}
+              disabled={addStatus === "loading"}
             >
               {t("detail.buy_now")}
             </button>
@@ -131,6 +162,7 @@ function ProductDetail() {
               className={cx("btn-add")}
               data-testid="btn-add"
               onClick={() => handleAddToCart(false)}
+              disabled={addStatus === "loading"}
             >
               {t("detail.add_to_cart")}
             </button>

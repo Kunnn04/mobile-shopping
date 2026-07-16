@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { mockApiCall } from "./utils";
 import { MOCK_PRODUCTS } from "../mocks/mockData";
-import { Product } from "../modules/product/product.slice";
+import { Product, ProductDetail } from "../modules/product/product.slice";
 
 interface RawProduct {
   id: string;
@@ -9,11 +9,6 @@ interface RawProduct {
   price: string | number;
   image: string;
   rating: number;
-}
-
-export interface ProductDetail extends Product {
-  description: string;
-  specs: string[];
 }
 
 const parsePrice = (priceStr: string | number): number => {

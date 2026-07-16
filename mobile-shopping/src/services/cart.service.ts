@@ -40,4 +40,9 @@ export const cartService = {
     );
     return mockApiCall(mockCart);
   },
+
+  clearCart: () => {
+    mockCart = [];
+    return mockApiCall(mockCart);
+  },
 };
